@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yaml
+    kompose.version: 1.9.0 (093c756)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: htpcmanager
+  name: htpcmanager
+  namespace: mediaserver
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: htpcmanager
+    spec:
+      containers:
+      - env:
+        - name: PGID
+        - name: PUID
+        image: carlosedp/htpcmanager
+        name: htpcmanager
+        ports:
+        - containerPort: 8085
+        resources: {}
+        volumeMounts:
+        - mountPath: /config
+          name: htpcmanager-config
+        - mountPath: /mnt
+          name: media
+      restartPolicy: Always
+      volumes:
+      - name: htpcmanager-config
+        persistentVolumeClaim:
+          claimName: htpcmanager-config
+      - name: media
+        nfs:
+          server: 192.168.1.4
+          path: "/mnt/1TB-WDred/"
+status: {}

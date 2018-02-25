@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: sickrage
+  namespace: mediaserver
+  annotations:
+    traefik.frontend.rule.type: PathPrefix
+spec:
+  rules:
+  - host: sickrage.internal.carlosedp.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: sickrage
+          servicePort: 8081

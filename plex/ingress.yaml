@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: plex
+  namespace: mediaserver
+  annotations:
+    traefik.frontend.rule.type: PathPrefix
+spec:
+  rules:
+  - host: plex.internal.carlosedp.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: plex
+          servicePort: 32400

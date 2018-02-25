@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yaml
+    kompose.version: 1.9.0 (093c756)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: transmission
+  name: transmission
+  namespace: mediaserver
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: transmission
+    spec:
+      containers:
+      - image: carlosedp/transmission
+        name: transmission
+        ports:
+        - containerPort: 9091
+        - containerPort: 51413
+        - containerPort: 51413
+          protocol: UDP
+        resources: {}
+        volumeMounts:
+        - mountPath: /etc/transmission-daemon
+          name: transmission-config
+        - mountPath: /volumes/media
+          name: transmission-media
+      restartPolicy: Always
+      volumes:
+      - name: transmission-config
+        configMap:
+          name: transmission-config
+      - name: transmission-media
+        nfs:
+          server: 192.168.1.4
+          path: "/mnt/1TB-WDred/"
+status: {}

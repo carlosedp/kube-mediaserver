@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yaml
+    kompose.version: 1.9.0 (093c756)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: couchpotato
+  name: couchpotato
+  namespace: mediaserver
+spec:
+  ports:
+  - name: "5050"
+    port: 5050
+    targetPort: 5050
+  selector:
+    io.kompose.service: couchpotato
+status:
+  loadBalancer: {}
