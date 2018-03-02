@@ -47,8 +47,8 @@ spec:
       volumes:
       - name: media
         nfs:
-          server: 192.168.1.4
-          path: "/mnt/1TB-WDred/"
+          server: 192.168.1.56
+          path: "/mnt/mediahdd/"
       - name: plex-config
         persistentVolumeClaim:
           claimName: plex-config

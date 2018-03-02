@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: airsonos
+  namespace: mediaserver
+spec:
+  hostNetwork: true
+  containers:
+  - image: fstehle/rpi-airsonos
+    imagePullPolicy: IfNotPresent
+    name: airsonos
+  restartPolicy: Always
