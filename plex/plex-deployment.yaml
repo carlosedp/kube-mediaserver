@@ -22,6 +22,7 @@ spec:
       containers:
       - image: jaymoulin/plex
         name: plex
+        hostNetwork: true
         ports:
         - containerPort: 32400
         - containerPort: 3005
