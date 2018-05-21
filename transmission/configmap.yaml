@@ -75,7 +75,7 @@ data:
 kind: ConfigMap
 metadata:
   creationTimestamp: 2018-02-24T20:07:06Z
-  name: transmission-config
+  name: transmission-configmap
   namespace: mediaserver
   resourceVersion: "811873"
   selfLink: /api/v1/namespaces/mediaserver/configmaps/transmission-config

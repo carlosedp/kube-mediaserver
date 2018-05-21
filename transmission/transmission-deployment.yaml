@@ -30,14 +30,20 @@ spec:
         resources: {}
         volumeMounts:
         - mountPath: /etc/transmission-daemon
-          name: transmission-config
+          name: config
+        - mountPath: /etc/transmission-daemon/settings.json
+          name: configfile
+          subPath: settings.json
         - mountPath: /volumes/media
           name: transmission-media
       restartPolicy: Always
       volumes:
-      - name: transmission-config
+      - name: configfile
         configMap:
-          name: transmission-config
+          name: transmission-configmap
+      - name: config
+        persistentVolumeClaim: 
+          claimName: transmission-config
       - name: transmission-media
         nfs:
           server: 192.168.1.56

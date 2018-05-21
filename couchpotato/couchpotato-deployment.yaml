@@ -24,6 +24,12 @@ spec:
         name: couchpotato
         ports:
         - containerPort: 5050
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5050
+          initialDelaySeconds: 30
+          periodSeconds: 10
         resources: {}
         volumeMounts:
         - mountPath: /volumes/media
