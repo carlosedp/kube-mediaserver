@@ -1,11 +1,11 @@
 apiVersion: v1
-data:
-  settings.json: |
-    { "port": 30801, "cacheDir": "./cache" }
 kind: ConfigMap
 metadata:
   name: sonos-web-config
   namespace: mediaserver
+data:
+  settings.json: |
+    { "port": 30801, "cacheDir": "./cache" }
 ---
 apiVersion: apps/v1
 kind: Deployment
