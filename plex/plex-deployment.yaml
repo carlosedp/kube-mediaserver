@@ -13,16 +13,19 @@ spec:
   replicas: 1
   strategy:
     type: Recreate
+  selector:
+    matchLabels:
+      io.kompose.service: plex
   template:
     metadata:
       creationTimestamp: null
       labels:
         io.kompose.service: plex
     spec:
+      hostNetwork: true
       containers:
       - image: jaymoulin/plex
         name: plex
-        hostNetwork: true
         ports:
         - containerPort: 32400
         - containerPort: 3005
@@ -53,14 +56,14 @@ spec:
       - name: plex-config
         persistentVolumeClaim:
           claimName: plex-config
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-          - matchExpressions:
-            - key: node-role.kubernetes.io/master
-              operator: NotIn
-              values:
-              - ''
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: node-role.kubernetes.io/master
+                  operator: NotIn
+                  values:
+                  - ''
 
 status: {}
